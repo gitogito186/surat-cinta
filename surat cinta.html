@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Untuk Teah 💌</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rose:#e63963; --rose2:#b3123b; --paper:#fff9fb; --ink:#2a2a2a;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; overflow:hidden; color:var(--ink);
+    background:linear-gradient(180deg,#ffe0ea,#ffd6e3 45%,#ffc2d6);
+    display:flex; align-items:center; justify-content:center; padding:18px;
+  }
+  /* background gambar rose + overlay lembut */
+  .bg{
+    position:fixed; inset:0; z-index:-2;
+    background:url("https://images.unsplash.com/photo-1464965911861-746a04b4bca6?q=80&w=1600&auto=format&fit=crop") center/cover no-repeat;
+    filter:blur(6px) saturate(1.05) opacity(.22);
+  }
+  .vignette{position:fixed; inset:0; z-index:-1; background:radial-gradient(ellipse at center, rgba(255,255,255,.45) 0%, rgba(0,0,0,.15) 90%);}
+  /* kelopak jatuh */
+  .petal{position:fixed; top:-10vh; width:16px; height:16px; border-radius:60% 40% 60% 40%; background:var(--rose); opacity:.75; transform:rotate(18deg); animation:fall linear forwards;}
+  @keyframes fall{to{transform:translateY(120vh) translateX(var(--drift,120px)) rotate(360deg);}}
+  /* kad */
+  .card{
+    width:min(720px,94vw); background:var(--paper);
+    border:1px solid rgba(230,57,99,.18); border-radius:28px;
+    box-shadow:0 18px 60px rgba(179,18,59,.28);
+    padding:26px 24px 18px; position:relative;
+  }
+  h1{
+    font-family:"Great Vibes",cursive; text-align:center;
+    font-size:clamp(42px,6.6vw,76px); color:var(--rose2); margin:6px 0 0;
+    text-shadow:0 2px 0 rgba(255,255,255,.6);
+  }
+  .subtitle{font-family:"Playfair Display",serif; text-align:center; opacity:.9; margin:2px 0 16px;}
+  .letter{
+    background:#fff; border:1px solid #ffe4ee; border-radius:18px;
+    padding:18px; font-family:"Playfair Display",serif;
+    font-size:clamp(16px,2.2vw,19px); line-height:1.75;
+  }
+  .signature{margin-top:16px; text-align:right; font-style:italic;}
+  .controls{display:flex; gap:10px; justify-content:center; margin:16px 0 6px; flex-wrap:wrap;}
+  button{
+    border:none; cursor:pointer; border-radius:999px; padding:10px 16px; font-weight:700;
+    background:linear-gradient(90deg,var(--rose),var(--rose2)); color:#fff; box-shadow:0 10px 22px rgba(230,57,99,.35);
+    transition:transform .08s ease;
+  }
+  button:active{transform:scale(.98)}
+  .ghost{background:#fff; color:var(--rose2); border:1px solid #ffd1df; box-shadow:none;}
+  /* hati terapung */
+  .hearts{position:fixed; inset:0; pointer-events:none;}
+  .heart{position:absolute; width:14px; height:14px; transform:rotate(45deg); animation:up 6s linear infinite;}
+  .heart::before,.heart::after{content:""; position:absolute; width:14px; height:14px; background:var(--rose); border-radius:50%;}
+  .heart::before{left:-7px; top:0} .heart::after{left:0; top:-7px}
+  @keyframes up{to{transform:translateY(-120vh) rotate(45deg); opacity:0}}
+</style>
+</head>
+<body>
+<div class="bg"></div><div class="vignette"></div>
+<div class="hearts" id="hearts"></div>
+
+<div class="card" id="card">
+  <h1>Untuk Teah</h1>
+  <p class="subtitle">dengan hati yang benar‑benar memilihmu</p>
+
+  <!-- AYAT ROMANTIS ~80 perkataan & lafaz cinta -->
+  <div class="letter" id="letter">
+    <p>Teah,</p>
+    <p>
+      Aku tak pandai berlebih kata, tapi setiap detik, namamu paling kuat di hati aku.
+      Senyummu menenangkan, hadirmu melengkapkan. Rindu ini tak pernah habis;
+      ia selalu pulang kepadamu.
+    </p>
+    <p>
+      Jadi biar aku jujur pagi ini: <strong>aku sebenarnya ad hati sma kau, Teah</strong>.
+      Aku mahu jaga kamu, sayang kamu, dan berjalan bersama kamu—hari ini, esok,
+      selamanya. Jika kau izinkan, biar cinta ini menjadi tempat kita berteduh.
+    </p>
+    <p class="signature">— Aku, milikmu</p>
+  </div>
+
+  <div class="controls">
+    <button id="playBtn">▶️ Play Music</button>
+    <button class="ghost" id="pauseBtn">⏸️ Pause</button>
+    <button class="ghost" id="sparkBtn">💞 Tambah Hati</button>
+  </div>
+</div>
+
+<!-- Muzik latar (ganti URL dengan MP3 kamu; autoplay biasanya butuh interaksi) -->
+<audio id="bgm" loop>
+  <!-- Placeholder bebas hak cipta; boleh tukar ke fail sendiri -->
+  <source src="https://cdn.pixabay.com/download/audio/2022/10/28/audio_1b3e7d0f2a.mp3?filename=romantic-ambient-124008.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  // Muzik
+  const audio=document.getElementById('bgm');
+  const playBtn=document.getElementById('playBtn');
+  const pauseBtn=document.getElementById('pauseBtn');
+  playBtn.addEventListener('click', async ()=>{ try{await audio.play(); playBtn.textContent='🎶 Playing...';}catch(e){alert('Tekan sekali lagi untuk benarkan audio.')}});
+  pauseBtn.addEventListener('click', ()=>{ audio.pause(); playBtn.textContent='▶️ Play Music'; });
+
+  // Hati terapung
+  const hearts=document.getElementById('hearts');
+  function spawnHeart(){
+    const h=document.createElement('div'); h.className='heart';
+    h.style.left=Math.random()*100+'vw'; h.style.bottom='-8vh';
+    const size=10+Math.random()*22, dur=4+Math.random()*5;
+    h.style.width=size+'px'; h.style.height=size+'px'; h.style.animationDuration=dur+'s'; h.style.opacity=.55+Math.random()*.35;
+    hearts.appendChild(h); setTimeout(()=>h.remove(), dur*1000);
+  }
+  setInterval(spawnHeart, 520);
+
+  // Kelopak jatuh
+  function petal(){
+    const p=document.createElement('div'); p.className='petal';
+    p.style.left=Math.random()*100+'vw';
+    p.style.setProperty('--drift', (Math.random()*240-120)+'px');
+    const s=10+Math.random()*18, d=6+Math.random()*6;
+    p.style.width=s+'px'; p.style.height=s*1.2+'px'; p.style.animationDuration=d+'s';
+    document.body.appendChild(p); setTimeout(()=>p.remove(), d*1000);
+  }
+  setInterval(petal, 700);
+
+  // Spark button
+  document.getElementById('sparkBtn').addEventListener('click', ()=>{for(let i=0;i<14;i++) setTimeout(spawnHeart, i*60);});
+</script>
+</body>
+  <malaalamniaammm
